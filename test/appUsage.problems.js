@@ -23,7 +23,11 @@ const appUsageModel = {
     // shouldnt need min: 0 for products
     // will merge in user constraints = qty*features.length -> must be equal e.g
     u1: { equal: 4 }, //1 user
-    u2: { equal: 8 } //2 users
+    u2: { equal: 8 }, //2 users
+    skype: { equal: 0 },
+    word: { equal: 0 },
+    outlook: { equal: 0 },
+    excel: { equal: 0 }
   },
 
   variables: {
@@ -44,20 +48,26 @@ const appUsageModel = {
     // merge in user variables e.g.
 
     u1: {
-      skype: 1 //= 1/n features used
+      skype: -1 //= 1/n features used
     },
 
     u2: {
-      outlook: 0.5,
-      word: 0.5
+      outlook: -0.5,
+      word: -0.5
     }
   },
-  ints: { e1: 1, e2: 1 }
+  unrestricted: {
+    skype: 1,
+    outlook: 1,
+    word: 1,
+    excel: 1
+  }
+  // ints: { e1: 1, e2: 1 }
 };
 
-describe.only("The Solve method takes a problem and solves it", () => {
+describe.only('The Solve method takes a problem and solves it', () => {
   it('should solve appUsage problem', () => {
-    const solver = require("../src/solver");
+    const solver = require('../src/solver');
     const obtainedResult = solver.Solve(appUsageModel);
     console.log(obtainedResult);
   });
